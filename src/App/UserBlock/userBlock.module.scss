@@ -1,0 +1,35 @@
+:root {
+  --shadowsizeMinus: calc(-1 * (0.2vh + 0.2vw));
+  --shadowsizePlus: calc((0.2vh + 0.2vw));
+}
+.home {
+  margin-top: 8%;
+  margin-left: 10%;
+  width: 80%;
+  border: calc(0.1vh + 0.1vw) solid rgb(187, 186, 186);
+  border-radius: calc(1vh + 1vw);
+  box-shadow: var(--shadowsizeMinus) var(--shadowsizeMinus)
+    var(--shadowsizePlus) var(--shadowsizeMinus) rgba(34, 60, 80, 0.6) inset;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.home input {
+  padding-left: 2%;
+  font-size: calc(1vh + 1vw);
+  border: calc(0.1vh + 0.1vw) solid rgb(187, 186, 186);
+  border-radius: calc(0.5vh + 0.5vw);
+  width: 60%;
+  background-color: white;
+}
+.home div {
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+}
+.home label {
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+}

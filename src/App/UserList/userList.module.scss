@@ -1,0 +1,51 @@
+.userBlock label {
+  color: rgb(139, 139, 139);
+}
+.metadata {
+  display: flex;
+  column-gap: 5%;
+  padding: 1% 1% 1% 1%;
+}
+button {
+  font-size: calc(1vh + 1vw);
+}
+.userBlock {
+  position: relative;
+  background-color: #f3f3f3ff;
+  border-radius: calc(0.5vh + 0.5vw);
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  padding-left: 2%;
+  box-shadow: var(--shadowsizePlus) var(--shadowsizePlus) var(--shadowsizePlus)
+    var(--shadowsizeMinus) rgba(34, 60, 80, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  width: 3vw;
+  border: none;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 6vh;
+  background-color: #299151;
+}
+::-webkit-scrollbar-track {
+  border-radius: 1.3vw;
+  border-left: 1vw solid transparent;
+  border-right: 1vw solid transparent;
+  background-clip: padding-box;
+  background-repeat: repeat-y;
+  background-size: contain;
+}
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+  display: none;
+}
