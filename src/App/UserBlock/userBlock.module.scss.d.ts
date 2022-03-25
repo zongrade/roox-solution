@@ -4,6 +4,7 @@ interface CssExports {
   'beuBtn': string;
   'home': string;
   'sbButn': string;
+  'sbButndis': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

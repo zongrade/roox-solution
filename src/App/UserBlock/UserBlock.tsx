@@ -395,7 +395,7 @@ const UserBlock = (props: {
           </button>
         ) : (
           <button
-            className={classes.sbButn}
+            className={classes.sbButndis}
             title='Отредактируйте'
             type='submit'
             disabled

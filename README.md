@@ -1,4 +1,6 @@
-# golden-point
+# roox-solution
 
-data about exchange rates by cb ru
-![image](./screens/Screenshot.png?raw=true)
+vot
+
+![image](./screen/main.png.png?raw=true)
+![image](./screen/User.png.png.png?raw=true)
