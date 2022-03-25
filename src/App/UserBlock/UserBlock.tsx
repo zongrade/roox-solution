@@ -42,7 +42,6 @@ const UserBlock = (props: {
   type allKey = keyof userRequest[0] | KTaddress | KTcompany
   const [inputs, setInputs] = useState(userData as userRequest[0])
   const [canSend, setCanSend] = useState<allKey[]>([])
-  console.log(canSend)
   function setUserInputs(e: allKey, newData: string) {
     !newData
       ? setCanSend((prev) =>
@@ -345,7 +344,7 @@ const UserBlock = (props: {
                     }
                     required
                     id='website'
-                    type='url'
+                    type='text'
                     readOnly
                     onChange={(e) => {
                       setUserInputs(e.target.id as allKey, e.target.value)
@@ -361,7 +360,7 @@ const UserBlock = (props: {
                     }
                     required
                     id='website'
-                    type='url'
+                    type='text'
                     onChange={(e) => {
                       setUserInputs(e.target.id as allKey, e.target.value)
                     }}

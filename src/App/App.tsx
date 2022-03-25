@@ -9,7 +9,6 @@ const App = () => {
     userRequest,
     Dispatch<SetStateAction<userRequest>>
   ] = useState(checkData())
-  console.log(first)
   function checkData(): any[] {
     if (
       localStorage.getItem('users') &&

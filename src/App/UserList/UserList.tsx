@@ -3,7 +3,6 @@ import { userRequest } from './UserListComp'
 import classes from './userList.module.scss'
 import { Link } from 'react-router-dom'
 const UserList = (props: { 0: userRequest; loading: boolean }) => {
-  console.log(props)
   return (
     <>
       {!props.loading ? (

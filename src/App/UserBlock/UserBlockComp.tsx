@@ -20,13 +20,13 @@ const UserBlockComp = () => {
           method: 'PUT',
           body: JSON.stringify(data),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json',
           },
         }
       )
+      if (!request.ok) throw new Error('error')
       const res = await request.json()
-      if (!res.ok) throw new Error(res)
-      return res
+      console.log(res)
     }
     try {
       if (data) sendUserData(data)

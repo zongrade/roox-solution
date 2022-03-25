@@ -30,7 +30,6 @@ const UserListComp = (props: {
   first: userRequest
 }) => {
   const [loading, setLoading] = useState(false)
-  console.log(props)
   async function getUserData() {
     const responce = await fetch(
       'https://jsonplaceholder.typicode.com/users?_limit=10'
