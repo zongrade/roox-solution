@@ -1,0 +1,17 @@
+.beuBtn {
+  background-color: #4b51efff;
+  border-radius: calc(0.2vh + 0.2vw);
+  color: white;
+  height: 4vh;
+  width: calc(5vh + 5vw);
+}
+@media (max-width: 500px) {
+  .beuBtn {
+    width: calc(2vh + 7vw);
+  }
+}
+@media (min-aspect-ratio: 1/3) {
+  .beuBtn {
+    width: calc(2vh + 7vw);
+  }
+}

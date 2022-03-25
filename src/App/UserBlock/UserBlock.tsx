@@ -1,90 +1,231 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { userRequest } from '../UserList/UserListComp'
+import { KTaddress, KTcompany, userRequest } from '../UserList/UserListComp'
 import classes from './userBlock.module.scss'
 const UserBlock = (props: {
   isYour: () => userRequest[0] | false | undefined
   updateUserData: (data: userRequest[0]) => void
 }) => {
-  //TODO: сделать контролируемые компоненты
   const [edit, setfirst] = useState(false)
-  console.log(props)
+  const [comments, setComments] = useState('')
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
     //TODO: доделать типы под запрос
     userData ? props.updateUserData(userData) : 1
   }
   const userData = props.isYour()
-  const ss = { ...userData, ...{ name: 'Alex Mercer' } }
-  console.log(ss)
+  const sa: userRequest[0] = userData
+    ? userData
+    : {
+        address: {
+          city: '',
+          geo: {
+            lat: '',
+            lng: '',
+          },
+          street: '',
+          suite: '',
+          zipcode: '',
+        },
+        company: {
+          bs: '',
+          catchPhrase: '',
+          name: '',
+        },
+        email: '',
+        id: 0,
+        name: '',
+        phone: '',
+        username: '',
+        website: '',
+      }
+  type allKey = keyof userRequest[0] | KTaddress | KTcompany
+  const [inputs, setInputs] = useState(userData as userRequest[0])
+  const [canSend, setCanSend] = useState<allKey[]>([])
+  console.log(canSend)
+  function setUserInputs(e: allKey, newData: string) {
+    !newData
+      ? setCanSend((prev) =>
+          prev.find((elem) => elem === e) ? prev : [...prev, e]
+        )
+      : setCanSend((prev) => prev.filter((elem) => elem !== e))
+    if (e in inputs) {
+      setInputs((prev: userRequest[0]) => {
+        return {
+          ...inputs,
+          ...{
+            [e]: newData,
+          },
+        }
+      })
+    } else if (e in inputs.address) {
+      setInputs({
+        ...inputs,
+        ...{ address: { ...inputs.address, ...{ [e]: newData } } },
+      })
+    } else {
+      setInputs({
+        ...inputs,
+        ...{ company: { ...inputs.company, ...{ [e]: newData } } },
+      })
+    }
+  }
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
       <span style={{ position: 'absolute', top: '1vh', left: '9vw' }}>
         Профиль пользователя
       </span>
       <button
-        onClick={() => setfirst((prev) => !prev)}
-        style={{ position: 'absolute', top: '1vh', right: '1vw' }}
+        onClick={() => {
+          if (userData) setfirst((prev) => !prev)
+        }}
+        style={{ position: 'absolute', top: '1vh', right: '5vw' }}
+        className={classes.beuBtn}
       >
         Редактировать
       </button>
-      <form onSubmit={handleSubmit}>
+      <form style={{ height: '80%' }} onSubmit={handleSubmit}>
         <div className={classes.home}>
           {userData ? (
             <>
+              {/*TODO: переделать под map*/}
               <div>
                 <label htmlFor='name'>Name</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.name
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='name'
                     type='text'
-                    disabled
-                    placeholder={userData.name}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.name}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.name} />
+                  <input
+                    style={
+                      !inputs.name
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='name'
+                    type='text'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.name}
+                  />
                 )}
               </div>
               <div>
                 <label htmlFor='username'>username</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.username
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='username'
                     type='text'
-                    disabled
-                    placeholder={userData.username}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.username}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.username} />
+                  <input
+                    style={
+                      !inputs.username
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='username'
+                    type='text'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.username}
+                  />
                 )}
               </div>
               <div>
                 <label htmlFor='email'>email</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.email
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='email'
                     type='email'
-                    disabled
-                    placeholder={userData.email}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.email}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.email} />
+                  <input
+                    style={
+                      !inputs.email
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='email'
+                    type='text'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.email}
+                  />
                 )}
               </div>
               <div>
                 <label htmlFor='street'>street</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.address.street
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='street'
                     type='text'
-                    disabled
-                    placeholder={userData.address.street}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.street}
                   />
                 ) : (
                   <input
-                    id='name'
+                    style={
+                      !inputs.address.street
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='street'
                     type='text'
-                    value={userData.address.street}
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.street}
                   />
                 )}
               </div>
@@ -92,72 +233,177 @@ const UserBlock = (props: {
                 <label htmlFor='city'>city</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.address.city
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='city'
                     type='text'
-                    disabled
-                    placeholder={userData.address.city}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.city}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.address.city} />
+                  <input
+                    style={
+                      !inputs.address.city
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='city'
+                    type='text'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.city}
+                  />
                 )}
               </div>
               <div>
                 <label htmlFor='zipcode'>zipcode</label>
                 {!edit ? (
                   <input
+                    style={
+                      !inputs.address.zipcode
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
                     id='zipcode'
                     type='text'
-                    disabled
-                    placeholder={userData.address.zipcode}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.zipcode}
                   />
                 ) : (
                   <input
-                    id='name'
+                    style={
+                      !inputs.address.zipcode
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='zipcode'
                     type='text'
-                    value={userData.address.zipcode}
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.address.zipcode}
                   />
                 )}
               </div>
               <div>
-                <label htmlFor='tel'>tel</label>
+                <label htmlFor='phone'>tel</label>
                 {!edit ? (
                   <input
-                    id='tel'
+                    style={
+                      !inputs.phone
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='phone'
                     type='tel'
-                    disabled
-                    placeholder={userData.phone}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.phone}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.phone} />
+                  <input
+                    style={
+                      !inputs.phone
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='phone'
+                    type='tel'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.phone}
+                  />
                 )}
               </div>
               <div>
-                <label htmlFor='site'>site</label>
+                <label htmlFor='website'>site</label>
                 {!edit ? (
                   <input
-                    id='site'
+                    style={
+                      !inputs.website
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='website'
                     type='url'
-                    disabled
-                    placeholder={userData.website}
+                    readOnly
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.website}
                   />
                 ) : (
-                  <input id='name' type='text' value={userData.website} />
+                  <input
+                    style={
+                      !inputs.website
+                        ? { border: 'calc(0.1vh + 0.1vw) red solid' }
+                        : {}
+                    }
+                    required
+                    id='website'
+                    type='url'
+                    onChange={(e) => {
+                      setUserInputs(e.target.id as allKey, e.target.value)
+                    }}
+                    value={inputs.website}
+                  />
                 )}
               </div>
               <div style={{ marginBottom: '1vh' }}>
                 <label htmlFor='comments'>comments</label>
                 {!edit ? (
-                  <input id='comments' disabled />
+                  <input
+                    id='comments'
+                    onChange={(e) => setComments(e.target.value)}
+                    readOnly
+                  />
                 ) : (
-                  <input id='name' type='text' />
+                  <input
+                    id='comments'
+                    onChange={(e) => setComments(e.target.value)}
+                    type='text'
+                  />
                 )}
               </div>
             </>
           ) : (
-            <span style={{ margin: '50%' }}>No user</span>
+            <span style={{ margin: '0 0 0 50%' }}>No user</span>
           )}
         </div>
-        <button type='submit'>Отправить</button>
+        {edit && canSend.length === 0 ? (
+          <button className={classes.sbButn} type='submit'>
+            Отправить
+          </button>
+        ) : (
+          <button
+            className={classes.sbButn}
+            title='Отредактируйте'
+            type='submit'
+            disabled
+          >
+            Отправить
+          </button>
+        )}
       </form>
     </div>
   )

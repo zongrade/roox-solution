@@ -2,8 +2,6 @@
 // Please do not change this file!
 interface CssExports {
   'beuBtn': string;
-  'home': string;
-  'sbButn': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
